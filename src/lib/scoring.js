@@ -312,7 +312,7 @@ function scoreComponentAdoption(componentsInput, pageDomsInput, pageCount = 0) {
   const { totalNodes, componentInstances, pageLevelCounts } = extractClassesFromDom(pageDoms);
   const pages = Math.max(pageCount, pageLevelCounts.length, 1);
   const avgInstanceDensity = percent(componentInstances, Math.max(totalNodes, 1));
-  const reuseDepth = percent(componentInstances, Math.max(components.length, 1)) * 100;
+  const reuseDepth = percent(componentInstances, Math.max(components.length, 1));
   const pagesWithZeroComponents = pageLevelCounts.filter((count) => count === 0).length + Math.max(0, pageCount - pageLevelCounts.length);
   const semanticNames = components.filter((component) => {
     const name = component.name ?? component.displayName ?? component.label ?? "";
@@ -417,7 +417,7 @@ function scoreCmsSchema(collectionsInput) {
   const refDensity = percent(referenceFields.length, allFields.length);
   const score = clamp(
     0,
-    average(fieldTypeCounts) * 15 * 0.2 +
+    Math.min(100, average(fieldTypeCounts) * 15) * 0.2 +
       Math.min(100, refDensity * 200) * 0.25 +
       percent(requiredFields.length, allFields.length) * 100 * 0.15 +
       percent(validationFields.length, allFields.length) * 100 * 0.15 +
